@@ -331,7 +331,7 @@ h2{font-size:18px;margin:18px 0 10px;font-weight:800}
   font-weight:800;font-size:14px;margin-bottom:10px;text-align:center;
 }
 
-/* Live-Track-Anzeige beim Anführer */
+/* Live-Track-Anzeige beim Road-Captain */
 .live-track{
   display:flex;justify-content:space-around;align-items:center;
   padding:10px 14px;border-radius:12px;background:var(--card2);
@@ -445,7 +445,7 @@ button{font:inherit}
 
 <header>
   <h1 id="hdr-title">Kolonne – Live</h1>
-  <p id="sub">Anführer sieht die Kolonne · Fahrer sehen ihre Ampel</p>
+  <p id="sub">Road-Captain sieht die Kolonne · Fahrer sehen ihre Ampel</p>
   <button id="help-btn" class="help-btn" type="button" aria-label="Hilfe">?</button>
 </header>
 
@@ -457,7 +457,7 @@ button{font:inherit}
 <section id="view-start">
   <div class="card start">
     <h2 style="margin-top:0">Wie möchtest du starten?</h2>
-    <button id="go-leader" type="button">Ich bin Anführer</button>
+    <button id="go-leader" type="button">Ich bin Road-Captain</button>
     <button id="go-follower" class="alt" type="button">Ich bin Fahrer</button>
 
     <div id="leader-opts" class="hidden" style="margin-top:8px">
@@ -475,7 +475,7 @@ button{font:inherit}
     </div>
 
     <div id="follower-join" class="hidden" style="margin-top:8px">
-      <label for="join-room">Raum-Code (vom Anführer)</label>
+      <label for="join-room">Raum-Code (vom Road-Captain)</label>
       <input id="join-room" placeholder="z. B. A7K2M9Q4B6XZ" autocomplete="off" autocapitalize="characters" maxlength="12">
 
       <label for="join-name">Dein Name</label>
@@ -497,7 +497,7 @@ button{font:inherit}
     </div>
 
     <p class="hint">
-      Der Anführer erstellt einen Raum und zeigt einen QR-Code.
+      Der Road-Captain erstellt einen Raum und zeigt einen QR-Code.
       Die Fahrer scannen ihn oder geben den Code ein.
     </p>
 
@@ -508,7 +508,7 @@ button{font:inherit}
   </div>
 </section>
 
-<!-- ================= ANFÜHRER ================= -->
+<!-- ================= Road-Captain ================= -->
 <section id="view-leader" class="hidden">
   <div class="card">
     <div class="room-name" id="leader-name-label">Kolonne</div>
@@ -560,7 +560,7 @@ button{font:inherit}
       Du bist offline markiert. Tippe unten, wenn du wieder da bist.
     </div>
     <div id="follower-leader-warn" class="leader-warn hidden">
-      Kein Signal vom Anführer. Kolonne möglicherweise beendet.
+      Kein Signal vom Road-Captain Kolonne möglicherweise beendet.
     </div>
 
     <div class="ampel" id="follower-ampel">
@@ -604,7 +604,7 @@ button{font:inherit}
 <div id="end-overlay" class="overlay hidden">
   <div class="ended">
     <h2>Kolonne beendet</h2>
-    <p id="end-msg">Der Anführer hat die Kolonne beendet.</p>
+    <p id="end-msg">Der Road-Captain hat die Kolonne beendet.</p>
     <button id="end-back" type="button">Zur Startseite</button>
   </div>
 </div>
@@ -622,11 +622,11 @@ button{font:inherit}
     </div>
 
     <p><b>Sinn & Zweck</b></p>
-    <p>Kolonne Live hilft Motorradgruppen (besonders Harley-Fahrern), auch bei größeren Ausfahrten den Überblick zu behalten. Der Anführer sieht in Echtzeit, ob alle Fahrer noch in der Kolonne sind, ob Lücken entstehen oder jemand falsch abgebogen ist. Die Fahrer bekommen eine einfache Ampel, die ihnen zeigt, ob sie noch „dran“ sind.</p>
+    <p>Kolonne Live hilft Motorradgruppen (besonders Harley-Fahrern), auch bei größeren Ausfahrten den Überblick zu behalten. Der Road-Captain sieht in Echtzeit, ob alle Fahrer noch in der Kolonne sind, ob Lücken entstehen oder jemand falsch abgebogen ist. Die Fahrer bekommen eine einfache Ampel, die ihnen zeigt, ob sie noch „dran“ sind.</p>
 
-    <p><b>Anführer:</b></p>
+    <p><b>Road-Captain:</b></p>
     <ul>
-      <li>„Ich bin Anführer“ wählen → optional Kolonnen-Name und eigenen Verein auswählen → starten</li>
+      <li>„Ich bin Road-Captain“ wählen → optional Kolonnen-Name und eigenen Verein auswählen → starten</li>
       <li>QR-Code zeigen oder Link kopieren und an die Fahrer schicken</li>
       <li>Avatar-Reihe / Liste: grün = alles ok, gelb = Lücke, rot = steht oder offline, violett = falsch abgebogen</li>
       <li>„Kolonne beenden“ → alle Fahrer werden informiert und die Verbindung getrennt</li>
@@ -637,7 +637,7 @@ button{font:inherit}
     <ul>
       <li>QR-Code scannen (oder Raum-Code eingeben) → Namen und Verein / Club wählen → beitreten</li>
       <li>Die Ampel zeigt deinen Status in der Kolonne an</li>
-      <li>„Kolonne verlassen“ → Anführer und die anderen Fahrer werden informiert</li>
+      <li>„Kolonne verlassen“ → Road-Captain und die anderen Fahrer werden informiert</li>
       <li>Bei Verbindungsabbruch erscheint „Ich bin wieder da“ – damit kannst du dich erneut melden</li>
     </ul>
 
@@ -687,7 +687,7 @@ button{font:inherit}
           Die Daten dienen ausschließlich dem Live-Betrieb der Kolonne-Funktion (Anzeige der Position und des Status der Teilnehmer untereinander).</p>
 
           <p><b>4. Speicherdauer</b><br>
-          Während der Teilnahme werden aktuelle Standortdaten über Supabase Realtime an verbundene Teilnehmer desselben Raums übertragen. Diese App lädt den Track nicht in eine Supabase-Datenbank hoch. Der vom Anführer aufgezeichnete Streckenverlauf wird lokal im Browser gespeichert und bleibt dort bis zum Löschen über „Lokalen Track löschen“, „Alle lokal gespeicherten Tracks löschen“ in der Hilfe oder durch das Löschen der Browserdaten. Auch zuletzt verwendete Raum-Codes und die Club-Auswahl werden lokal gespeichert.</p>
+          Während der Teilnahme werden aktuelle Standortdaten über Supabase Realtime an verbundene Teilnehmer desselben Raums übertragen. Diese App lädt den Track nicht in eine Supabase-Datenbank hoch. Der vom Road-Captain aufgezeichnete Streckenverlauf wird lokal im Browser gespeichert und bleibt dort bis zum Löschen über „Lokalen Track löschen“, „Alle lokal gespeicherten Tracks löschen“ in der Hilfe oder durch das Löschen der Browserdaten. Auch zuletzt verwendete Raum-Codes und die Club-Auswahl werden lokal gespeichert.</p>
 
           <p><b>5. Empfänger / Drittanbieter</b><br>
           Für die Echtzeit-Kommunikation wird Supabase Realtime genutzt. Beim Anzeigen einer Karte werden Kartendaten von OpenStreetMap geladen; Skripte und die Club-Liste können von jsDelivr, unpkg und GitHub geladen werden. Diese Dienste erhalten dabei technisch notwendige Verbindungsdaten wie die IP-Adresse. Die App selbst sendet keine Trackpunkte an diese Karten- oder Bibliotheksanbieter. Die App wird über GitHub Pages bereitgestellt.</p>
@@ -1163,7 +1163,7 @@ var myRole        = null;
 var myRoom        = null;
 var myId          = null;
 var myProfile     = { name:"", clubId:"02" };
-var myClubId      = "02"; // für Anführer
+var myClubId      = "02"; // für Road-Captain
 var myNumber      = null;
 var myRoomName    = "";
 var followers     = {};
@@ -1537,7 +1537,7 @@ function broadcastBeforeClose(message, onComplete){
    ============================================================================ */
 function handleMessage(m){
 
-  /* ---------- Anführer hört zu ---------- */
+  /* ---------- Road-Captain hört zu ---------- */
   if(myRole === "leader"){
 
     if(m.t === "hello"){
@@ -1653,7 +1653,7 @@ function handleMessage(m){
       if(m.kind === "left" && m.name) showWave(m.name, "hat die Kolonne verlassen");
     }
     else if(m.t === "end"){
-      handleLeaderEnded(m.reason || "Der Anführer hat die Kolonne beendet.");
+      handleLeaderEnded(m.reason || "Der Road-Captain hat die Kolonne beendet.");
     }
   }
 }
@@ -1741,7 +1741,7 @@ function pushStatus(){
    14. GPS
    ============================================================================ */
 
-/* --- Anführer: Position + Track-Aufzeichnung --- */
+/* --- Road-Captain: Position + Track-Aufzeichnung --- */
 function startLeaderGeo(){
   if(!navigator.geolocation){ toast("Kein GPS verfügbar."); return; }
   if(geoWatchId !== null){
@@ -1820,13 +1820,13 @@ function startFollowerStatusTimer(){
       $("follower-leader-warn").classList.remove("hidden");
     }
     if(leaderPos.ts && (now() - leaderPos.ts) > 8000){
-      $("follower-status").textContent = "Kein Signal vom Anführer …";
+      $("follower-status").textContent = "Kein Signal vom Road-Captain …";
     }
     renderFollower();
   }, 2000);
 }
 /* ============================================================================
-   16. RENDERING: ANFÜHRER
+   16. RENDERING: Road-Captain
    ============================================================================ */
 function statusLabel(s){
   return ({
@@ -1922,7 +1922,7 @@ function renderLeader(){
     var html = '<div class="rider">' +
       '<div class="avatar ok"><span class="num">1</span>' + avatarSVG(myClubId) +
       '<span class="nm">Du</span></div>' +
-      '<div class="st">anführer</div></div>';
+      '<div class="st">Road-Captain</div></div>';
 
     for(var m2=0;m2<filtered.length;m2++){
       var x = filtered[m2];
@@ -2078,7 +2078,7 @@ function showView(name){
 }
 
 /* ============================================================================
-   21. START: ANFÜHRER
+   21. START: Road-Captain
    ============================================================================ */
 function startLeader(room, roomName, isRejoin){
   var normalizedRoom = normalizeRoomCode(room);
@@ -2179,7 +2179,7 @@ function leaderEnd(){
   if(statusTimer){ clearInterval(statusTimer); statusTimer = null; }
   if(liveTimer){ clearInterval(liveTimer); liveTimer = null; }
 
-  broadcastBeforeClose({ t:"end", reason: "Der Anführer hat die Kolonne beendet." }, function(){
+  broadcastBeforeClose({ t:"end", reason: "Der Road-Captain hat die Kolonne beendet." }, function(){
     if(channel){ try{ sb.removeChannel(channel); }catch(e){} channel = null; }
     clearRecent(myRoom);
     $("end-msg").textContent = !hasTrack
@@ -2226,7 +2226,7 @@ function renderRecentRooms(){
       div.innerHTML =
         '<div><b>' + label + '</b><br>' +
         '<small>Raum ' + esc(item.room) + ' · ' +
-        (item.role === "leader" ? "Anführer" : "Fahrer") + ' · ' +
+        (item.role === "leader" ? "Road-Captain" : "Fahrer") + ' · ' +
         esc(relTime(item.ts)) + '</small></div>' +
         '<button type="button">Beitreten</button>';
       div.querySelector("button").onclick = function(){
