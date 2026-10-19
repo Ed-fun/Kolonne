@@ -119,6 +119,56 @@ idealerweise Bildschirm an lassen.
 
 
 --------------------------------------------------------------------------------
+3.5 Wann wird eine Warnung ausgelöst? (Zeiten & Entfernungen)
+--------------------------------------------------------------------------------
+
+Die App bewertet den Status jedes Fahrers anhand von Abstand, Bewegung
+und letztem Signal. Aktuelle Standardwerte (in index.html änderbar):
+
+  ENTFERNUNGEN
+  ------------
+  GAP_M      = 400 m     Ab diesem Abstand zur Gruppe/zum Bezug: Status "Lücke" (gelb)
+  LOST_M     = 1000 m    Ab diesem Abstand: eher "steht/abgehängt" (rot)
+  LATERAL_M  = 350 m     Seitliche Abweichung von der Ideal-Linie/Kurs: Hinweis
+                         auf mögliches falsches Abbiegen (violett)
+  SEND_MOVE_M = 30 m     Position wird u. a. gesendet, wenn man sich so weit bewegt
+
+  ZEITEN / SIGNAL
+  ---------------
+  OFFLINE_MS        = 90 000 ms (90 s)
+      Kein Positions-Update vom Fahrer → Status "offline" (rot).
+      Meldung beim Anführer sinngemäß:
+      "Fahrer … sendet seit über 90 s nicht mehr"
+
+  SEND_TIMEOUT      = 20 000 ms (20 s)
+      Spätestens alle 20 Sekunden wird eine Position gesendet
+      (auch ohne große Bewegung), solange die App aktiv ist.
+
+  LEADER_TIMEOUT_MS = 120 000 ms (2 min)
+      Kein Signal vom Anführer → Warnung bei den Fahrern,
+      dass die Kolonne möglicherweise beendet oder der Anführer offline ist.
+
+  BEWEGUNG
+  --------
+  Als "bewegt" gilt grob ab ca. 10 km/h (intern MOVING_MS).
+  Stehende oder sehr langsame Fahrer können je nach Abstand
+  als "steht" bzw. kritisch eingestuft werden.
+
+  KURZ ZUSAMMENGEFASST FÜR ANWENDER
+  ---------------------------------
+  • Gelb (Lücke):   Du hängst spürbar zurück (hunderte Meter).
+  • Rot (abgehängt/offline): Sehr großer Abstand ODER länger kein GPS-Signal
+    (Standard: über 90 Sekunden ohne Update).
+  • Violett:        Du scheinst vom Kurs der Kolonne abzuweichen
+    (seitlich / falsche Abbiegung).
+  • Grün:           Abstand und Signal in Ordnung.
+
+  Diese Werte sind Kompromisse für Landstraße und Kolonnenfahrt.
+  Für engere Stadtgruppen oder sehr große Gruppen kann man GAP_M,
+  LOST_M und OFFLINE_MS in der index.html anpassen.
+
+
+--------------------------------------------------------------------------------
 4. TECHNISCHE BESCHREIBUNG (für Entwickler)
 --------------------------------------------------------------------------------
 
