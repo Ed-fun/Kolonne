@@ -914,14 +914,14 @@ function runSplash(cb){
   if(!sp){ cb(); return; }
   buildSplashLogo();
 
-  /* 2 s stehen lassen, dann 0,5 s ausblenden ( Eddi anzeigen 1500 ausblenden und 8000 Anzeigezeit */
+  /* 5s stehen lassen, dann 0,5 s ausblenden ( Eddi Willkommensseite anzeigen 500 ausblenden und 5000 Anzeigezeit  */
   setTimeout(function(){
     sp.classList.add("out");
     setTimeout(function(){
       sp.classList.add("hidden");
       if(typeof cb === "function") cb();
-    }, 1500);
-  }, 8000);
+    }, 500);
+  }, 5000);
 }
 
 /* ============================================================================
