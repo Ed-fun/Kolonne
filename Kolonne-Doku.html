@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0d0f">
+<title>Kolonne Live – Dokumentation</title>
+<style>
+:root{
+  --bg:#0a0d0f;--card:#141a1f;--card2:#1c242b;--ink:#eef1f3;--mute:#9aa6ae;
+  --line:#2a343b;--orange:#f26522;--orange-dim:#c44e15;--ok:#23955a;
+  --warn:#d98e04;--bad:#d03b3b;--vio:#8a4fd0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%;display:block;height:auto}
+a{color:var(--orange);text-decoration:none}
+a:active{opacity:.85}
+
+/* Hero */
+.hero{
+  position:relative;min-height:72vh;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:24px 18px 28px;
+  background:#000 center/cover no-repeat;
+  background-image:linear-gradient(180deg,rgba(10,13,15,.25) 0%,rgba(10,13,15,.92) 70%,#0a0d0f 100%),
+    url("https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1400&q=80");
+}
+.hero-badge{
+  align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--orange);border:1px solid var(--orange);
+  padding:6px 10px;border-radius:999px;margin-bottom:14px;background:rgba(0,0,0,.35);
+}
+.hero h1{
+  margin:0;font-size:clamp(2rem,8vw,3rem);font-weight:900;letter-spacing:-.02em;line-height:1.05;
+}
+.hero h1 span{color:var(--orange)}
+.hero p{margin:12px 0 0;color:#c8d0d5;font-size:15px;max-width:34em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:48px;padding:0 18px;border-radius:12px;font-weight:800;font-size:14px;
+  border:2px solid var(--line);background:var(--card2);color:var(--ink);cursor:pointer;
+}
+.btn.pri{background:var(--orange);border-color:var(--orange);color:#1c1400}
+.btn:active{transform:scale(.98)}
+
+/* Nav chips */
+.nav{
+  position:sticky;top:0;z-index:50;background:rgba(10,13,15,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  padding:10px 12px;display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+.nav a{
+  flex:none;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700;
+  color:var(--mute);background:var(--card);border:1px solid var(--line);
+}
+.nav a:hover,.nav a.on{color:var(--orange-ink,#1c1400);background:var(--orange);border-color:var(--orange);color:#1c1400}
+
+main{max-width:720px;margin:0 auto;padding:8px 14px 80px}
+
+/* Sections */
+section{padding:28px 0 8px}
+section h2{
+  margin:0 0 12px;font-size:1.35rem;font-weight:900;letter-spacing:-.02em;
+  display:flex;align-items:center;gap:10px;
+}
+section h2 .num{
+  width:28px;height:28px;border-radius:8px;background:var(--orange);color:#1c1400;
+  font-size:13px;display:flex;align-items:center;justify-content:center;flex:none;
+}
+.lead{color:var(--mute);margin:0 0 16px;font-size:15px}
+
+/* Cards & media */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:16px;margin-bottom:12px;
+}
+.card h3{margin:0 0 8px;font-size:1.05rem}
+.media{
+  border-radius:16px;overflow:hidden;margin:0 0 14px;border:1px solid var(--line);
+  position:relative;aspect-ratio:16/10;background:var(--card2);
+}
+.media img{width:100%;height:100%;object-fit:cover}
+.media .cap{
+  position:absolute;left:0;right:0;bottom:0;padding:12px 14px;
+  background:linear-gradient(transparent,rgba(0,0,0,.85));font-size:12px;color:#ddd;font-weight:600;
+}
+
+/* Status pills */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.pill{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+  font-size:13px;font-weight:700;background:var(--card2);border:1px solid var(--line);
+}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}
+.dot.g{background:var(--ok)} .dot.y{background:var(--warn)} .dot.r{background:var(--bad)} .dot.v{background:var(--vio)}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.tbl th,.tbl td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{color:var(--orange);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.tbl td code{font-size:12px;color:var(--orange);background:rgba(242,101,34,.12);padding:2px 6px;border-radius:6px}
+
+/* Accordion */
+details.acc{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;
+}
+details.acc summary{
+  list-style:none;cursor:pointer;padding:14px 16px;font-weight:800;font-size:15px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:"▾";color:var(--mute);font-size:14px}
+details.acc[open] summary{border-bottom:1px solid var(--line);color:var(--orange)}
+details.acc[open] summary::after{content:"▴"}
+.acc-body{padding:14px 16px 16px;color:var(--mute);font-size:14px}
+.acc-body ul{margin:8px 0;padding-left:18px}
+.acc-body li{margin-bottom:6px}
+.acc-body p{margin:0 0 10px}
+.acc-body p:last-child{margin-bottom:0}
+
+/* Checklist */
+.check{list-style:none;margin:0;padding:0}
+.check li{
+  display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);
+  font-size:14px;
+}
+.check li:last-child{border-bottom:0}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--orange);flex:none}
+
+/* Steps */
+.steps{counter-reset:step;margin:0;padding:0;list-style:none}
+.steps li{
+  position:relative;padding:0 0 18px 44px;counter-increment:step;
+}
+.steps li:last-child{padding-bottom:0}
+.steps li::before{
+  content:counter(step);position:absolute;left:0;top:0;
+  width:30px;height:30px;border-radius:50%;background:var(--orange);color:#1c1400;
+  font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;
+}
+.steps li::after{
+  content:"";position:absolute;left:14px;top:32px;bottom:0;width:2px;background:var(--line);
+}
+.steps li:last-child::after{display:none}
+.steps strong{display:block;color:var(--ink);margin-bottom:2px}
+
+.foot{
+  margin-top:32px;padding:20px 0;border-top:1px solid var(--line);
+  text-align:center;color:var(--mute);font-size:13px;
+}
+.foot b{color:var(--orange)}
+
+.banner{
+  display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;
+  background:linear-gradient(135deg,#1a2126,#2a1a0f);border:1px solid var(--orange);
+  margin:14px 0;font-size:13px;font-weight:600;
+}
+.banner span{font-size:22px}
+
+@media(min-width:640px){
+  .hero{padding:40px 28px 36px;min-height:60vh}
+  main{padding:12px 20px 100px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-badge">Dokumentation · Wartung · Anleitung</div>
+  <h1>KOLONNE <span>LIVE</span></h1>
+  <p>Die Motorrad-Kolonnen-App mit Live-Status, Ampel und Track – für Anführer und Fahrer. Mobile-first, Harley-Spirit, klar erklärt.</p>
+  <div class="hero-cta">
+    <a class="btn pri" href="https://ed-fun.github.io/Kolonne/" target="_blank" rel="noopener">App öffnen</a>
+    <a class="btn" href="#wartung">Zur Wartung</a>
+  </div>
+</header>
+
+<nav class="nav" id="nav">
+  <a href="#anwender">Anwender</a>
+  <a href="#warnungen">Warnungen</a>
+  <a href="#ablauf">Ablauf</a>
+  <a href="#wartung">Wartung</a>
+  <a href="#technik">Technik</a>
+  <a href="#check">Checkliste</a>
+</nav>
+
+<main>
+
+<!-- ANWENDER -->
+<section id="anwender">
+  <h2><span class="num">1</span> Was ist Kolonne Live?</h2>
+  <p class="lead">Hilfe für Motorradgruppen – besonders Harley-Fahrer – den Überblick in der Kolonne zu behalten.</p>
+
+  <div class="media">
+    <img src="https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?auto=format&fit=crop&w=1200&q=80" alt="Motorrad auf der Straße" loading="lazy">
+    <div class="cap">Freiheit auf zwei Rädern – die Kolonne im Blick behalten</div>
+  </div>
+
+  <div class="card">
+    <h3>Wofür die App da ist</h3>
+    <p style="margin:0;color:var(--mute);font-size:14px">
+      Der Anführer fährt vorne. Dahinter mehrere Bikes. In Kurven, an Ampeln oder beim Abbiegen
+      verliert man leicht jemanden. Kolonne Live zeigt in Echtzeit, ob alle noch dran sind,
+      ob eine Lücke entsteht oder jemand vom Kurs abweicht – direkt im Smartphone-Browser,
+      ohne App-Store-Installation.
+    </p>
+  </div>
+
+  <div class="pills">
+    <span class="pill"><span class="dot g"></span> Grün = dran</span>
+    <span class="pill"><span class="dot y"></span> Gelb = Lücke</span>
+    <span class="pill"><span class="dot r"></span> Rot = steht / offline</span>
+    <span class="pill"><span class="dot v"></span> Violett = falsche Richtung</span>
+  </div>
+</section>
+
+<!-- WARNUNGEN -->
+<section id="warnungen">
+  <h2><span class="num">2</span> Wann kommt welche Warnung?</h2>
+  <p class="lead">Zeiten und Entfernungen – die Schwellwerte aus der App (anpassbar in der <code>index.html</code>).</p>
+
+  <div class="media">
+    <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1200&q=80" alt="Motorrad Detail Chrom" loading="lazy">
+    <div class="cap">Chrom, Asphalt, Abstand – die App rechnet mit Metern und Sekunden</div>
+  </div>
+
+  <div class="card" style="overflow-x:auto">
+    <table class="tbl">
+      <thead>
+        <tr><th>Wert</th><th>Standard</th><th>Bedeutung</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>GAP_M</code></td>
+          <td><b>400 m</b></td>
+          <td>Ab diesem Abstand: Status <b style="color:var(--warn)">Lücke (gelb)</b></td>
+        </tr>
+        <tr>
+          <td><code>LOST_M</code></td>
+          <td><b>1000 m</b></td>
+          <td>Sehr großer Abstand → eher <b style="color:var(--bad)">abgehängt (rot)</b></td>
+        </tr>
+        <tr>
+          <td><code>LATERAL_M</code></td>
+          <td><b>350 m</b></td>
+          <td>Seitliche Abweichung vom Kurs → <b style="color:var(--vio)">violett</b> (falsch abgebogen?)</td>
+        </tr>
+        <tr>
+          <td><code>OFFLINE_MS</code></td>
+          <td><b>90 s</b></td>
+          <td>Kein Positions-Signal → <b style="color:var(--bad)">offline</b>. Meldung: „sendet seit über 90 s nicht mehr“</td>
+        </tr>
+        <tr>
+          <td><code>SEND_TIMEOUT</code></td>
+          <td><b>20 s</b></td>
+          <td>Mindest-Intervall für Positions-Updates (auch ohne große Bewegung)</td>
+        </tr>
+        <tr>
+          <td><code>LEADER_TIMEOUT_MS</code></td>
+          <td><b>2 min</b></td>
+          <td>Kein Signal vom Anführer → Warnung bei den Fahrern</td>
+        </tr>
+        <tr>
+          <td><code>SEND_MOVE_M</code></td>
+          <td><b>30 m</b></td>
+          <td>Zusätzlich senden, wenn man sich so weit bewegt hat</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <details class="acc" open>
+    <summary>In Anwendersprache</summary>
+    <div class="acc-body">
+      <ul>
+        <li><b style="color:var(--ok)">Grün</b> – Abstand und Signal in Ordnung, du bist dran.</li>
+        <li><b style="color:var(--warn)">Gelb</b> – Du hängst spürbar zurück (hunderte Meter).</li>
+        <li><b style="color:var(--bad)">Rot</b> – Sehr großer Abstand oder länger kein GPS-Signal (über 90 Sekunden).</li>
+        <li><b style="color:var(--vio)">Violett</b> – Du scheinst vom Kurs der Kolonne abzuweichen.</li>
+      </ul>
+      <p>Die Werte sind auf Landstraße und typische Kolonnenfahrt ausgelegt. Für Stadt oder sehr große Gruppen können sie in der <code>index.html</code> angepasst werden.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ABLAUF -->
+<section id="ablauf">
+  <h2><span class="num">3</span> So läuft eine Tour</h2>
+  <p class="lead">Rollen, Beitritt und Praxis-Tipps.</p>
+
+  <div class="media">
+    <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=1200&q=80" alt="Biker Gruppe" loading="lazy">
+    <div class="cap">Gemeinsam raus – Anführer vorne, Fahrer im Blick der App</div>
+  </div>
+
+  <div class="card">
+    <ol class="steps">
+      <li>
+        <strong>Anführer startet</strong>
+        „Ich bin Anführer“ → optional Kolonnen-Name und Club wählen → starten. QR-Code oder Link teilen.
+      </li>
+      <li>
+        <strong>Fahrer treten bei</strong>
+        QR scannen oder Raum-Code eingeben, Namen und Verein/Club wählen → Beitreten.
+      </li>
+      <li>
+        <strong>Unterwegs</strong>
+        Anführer sieht Avatar-Reihe/Liste mit Farben. Fahrer sehen die eigene Ampel. Display idealerweise an lassen.
+      </li>
+      <li>
+        <strong>Tourende</strong>
+        Anführer beendet die Kolonne. Optional Track als GPX speichern oder auf der Karte ansehen.
+      </li>
+    </ol>
+  </div>
+
+  <details class="acc">
+    <summary>Tipps für die Praxis</summary>
+    <div class="acc-body">
+      <ul>
+        <li>Bildschirm an lassen – die App fordert Wake-Lock an (iOS oft eingeschränkt).</li>
+        <li>Guter GPS-Empfang (nicht unter dickem Material in der Tasche).</li>
+        <li>Seite nur über HTTPS nutzen (GitHub Pages ist das automatisch).</li>
+        <li>Bei Offline: wieder Empfang, App offen, ggf. „Ich bin wieder da“.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- WARTUNG -->
+<section id="wartung">
+  <h2><span class="num">4</span> Wartung – das Wichtigste</h2>
+  <p class="lead">Damit die App dauerhaft läuft: Supabase, GitHub, Icons.</p>
+
+  <div class="banner">
+    <span>⚡</span>
+    <div>Supabase Free-Tier kann nach ca. <b>7 Tagen ohne Aktivität</b> pausieren. Dann kurz einloggen und Projekt wiederherstellen – oder 1–2× pro Woche die App öffnen.</div>
+  </div>
+
+  <details class="acc" open>
+    <summary>Supabase (Live-Verbindung)</summary>
+    <div class="acc-body">
+      <p>Realtime-Channel pro Raum-Code. Ohne aktives Projekt keine Kolonne.</p>
+      <ul>
+        <li>Free-Tier: Pause nach Inaktivität möglich</li>
+        <li>Wieder aktivieren: Supabase-Dashboard → Project → Restore</li>
+        <li>Optional: automatischer Ping (cron-job.org) auf die Projekt-URL</li>
+        <li>Anon-Key &amp; URL stehen in der <code>index.html</code></li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="acc">
+    <summary>GitHub &amp; GitHub Pages</summary>
+    <div class="acc-body">
+      <ul>
+        <li>Repo muss <b>öffentlich</b> bleiben für kostenloses Pages-Hosting</li>
+        <li>Live-Seite: <a href="https://ed-fun.github.io/Kolonne/" target="_blank" rel="noopener">ed-fun.github.io/Kolonne</a></li>
+        <li><code>index.html</code> liegt im Root von Branch <b>main</b></li>
+        <li>Push auf main → automatisches Deployment</li>
+        <li>Andere können den Code lesen, aber nicht ohne Rechte ändern</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="acc">
+    <summary>Club-Icons (Ordner icons/)</summary>
+    <div class="acc-body">
+      <p>Struktur auf <b>main</b>:</p>
+      <pre style="background:#0a0d0f;padding:12px;border-radius:10px;overflow:auto;font-size:12px;color:#c8d0d5">index.html
+icons/
+  01_Harley-Pfalz-Club.svg
+  02_Einzelteilnehmer.svg
+  03_Harley_Friends_Saarlouis.svg
+  04_nix.svg
+  …</pre>
+      <ul>
+        <li>Schema: <code>XX_Club-Name.svg</code> (Nummer = Sortierung)</li>
+        <li>Dateien mit <code>_nix</code> im Namen → nicht im Dropdown</li>
+        <li>Neuer Club = nur SVG hochladen, App neu laden</li>
+        <li>Ordnername genau <code>icons</code> (klein) – kein Branch „Icons“!</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="acc">
+    <summary>Schwellwerte in der index.html</summary>
+    <div class="acc-body">
+      <p>Suche im Script nach „Schwellwerte“:</p>
+      <ul>
+        <li><code>OFFLINE_MS</code> – ms bis offline (90000 = 90 s)</li>
+        <li><code>SEND_TIMEOUT</code> – min. Sendeintervall</li>
+        <li><code>LEADER_TIMEOUT_MS</code> – Timeout Anführer</li>
+        <li><code>GAP_M</code> / <code>LOST_M</code> / <code>LATERAL_M</code> – Abstände in Metern</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- TECHNIK -->
+<section id="technik">
+  <h2><span class="num">5</span> Technik (für Entwickler)</h2>
+  <p class="lead">Architektur und Datenfluss in Kurzform.</p>
+
+  <div class="media">
+    <img src="https://images.unsplash.com/photo-1622186477895-f3af969b3d0a?auto=format&fit=crop&w=1200&q=80" alt="Motorrad Nacht" loading="lazy">
+    <div class="cap">Eine HTML-Datei, Realtime, GPS – bewusst schlank gehalten</div>
+  </div>
+
+  <div class="card">
+    <h3>Architektur</h3>
+    <ul style="margin:0;padding-left:18px;color:var(--mute);font-size:14px">
+      <li>Reine Frontend-App: eine <code>index.html</code>, kein Build</li>
+      <li>Hosting: GitHub Pages</li>
+      <li>Echtzeit: Supabase Realtime (Broadcast pro Raum)</li>
+      <li>Standort: Geolocation API + optional Wake Lock</li>
+      <li>Clubs: GitHub Contents API auf <code>icons/</code>, Cache in localStorage</li>
+      <li>QR-Code: reine JS-Implementierung (kein CDN)</li>
+    </ul>
+  </div>
+
+  <details class="acc">
+    <summary>Datenfluss</summary>
+    <div class="acc-body">
+      <p>Anführer und Fahrer joinen denselben Channel (Raum-Code). Jeder sendet Position und Metadaten (Name, Club). Der Anführer berechnet Status (ok / gap / stop / off / wrong) und verteilt den Überblick. Fahrer sehen vor allem die eigene Ampel.</p>
+    </div>
+  </details>
+
+  <details class="acc">
+    <summary>Rechtstexte in der App</summary>
+    <div class="acc-body">
+      <p>Unter „?“ in der App: Impressum, Datenschutzerklärung und Haftungsausschluss als aufklappbare Abschnitte. Anbieter: Ed-fun, Rockenhausen · Ed-fun@web.de</p>
+    </div>
+  </details>
+</section>
+
+<!-- CHECKLISTE -->
+<section id="check">
+  <h2><span class="num">6</span> Wartungs-Checkliste</h2>
+  <p class="lead">Zum Abhaken – speichert sich nicht, ist aber gut als Ritual.</p>
+
+  <div class="card">
+    <ul class="check">
+      <li><input type="checkbox"> Supabase-Projekt aktiv (nicht pausiert)?</li>
+      <li><input type="checkbox"> Repo öffentlich, Branch <b>main</b> aktuell?</li>
+      <li><input type="checkbox"> <code>index.html</code> im Root von main?</li>
+      <li><input type="checkbox"> Ordner <code>icons/</code> auf main mit nummerierten SVGs?</li>
+      <li><input type="checkbox"> Nach Icon-Upload App hard-reload getestet?</li>
+      <li><input type="checkbox"> Impressum / Kontakt in der Hilfe noch korrekt?</li>
+      <li><input type="checkbox"> Bei Bedarf <code>OFFLINE_MS</code> / Abstände angepasst?</li>
+    </ul>
+  </div>
+
+  <div class="card" style="text-align:center">
+    <p style="margin:0 0 12px;color:var(--mute);font-size:14px">Live-App &amp; Feedback</p>
+    <a class="btn pri" href="https://ed-fun.github.io/Kolonne/" target="_blank" rel="noopener">Zur Kolonne-App</a>
+    <p style="margin:14px 0 0;font-size:13px;color:var(--mute)">
+      Kontakt: <a href="mailto:Ed-fun@web.de">Ed-fun@web.de</a> · Rockenhausen
+    </p>
+  </div>
+</section>
+
+<footer class="foot">
+  <p><b>KOLONNE LIVE</b> · Dokumentation für Anwender &amp; Entwickler</p>
+  <p>Nutzung der App auf eigene Gefahr · Straßenverkehrsregeln haben Vorrang</p>
+  <p style="margin-top:10px;font-size:11px;opacity:.7">Bilder: Unsplash (frei nutzbar) · Stand der Schwellwerte wie in der App dokumentiert</p>
+</footer>
+
+</main>
+
+<script>
+(function(){
+  var links = document.querySelectorAll('.nav a');
+  function setOn(){
+    var y = window.scrollY + 80;
+    var cur = null;
+    document.querySelectorAll('main section[id]').forEach(function(s){
+      if(s.offsetTop <= y) cur = s.id;
+    });
+    links.forEach(function(a){
+      a.classList.toggle('on', a.getAttribute('href') === '#' + cur);
+    });
+  }
+  window.addEventListener('scroll', setOn, {passive:true});
+  setOn();
+})();
+</script>
+</body>
+</html>
