@@ -1,0 +1,3 @@
+01|Harley Pfalz Club|https://ed-fun.github.io/Kolonne/|Chapter in der Pfalz
+02|Einzelteilnehmer|-|Gast / ohne Club-Zugehörigkeit
+03|Harley Friends Saarlouis|-|Club-Info folgt
