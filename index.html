@@ -7,7 +7,7 @@
 
 <!--
 ============================================================================
-  KOLONNE – LIVE  (Version 0.12)
+  KOLONNE – LIVE  (Version 0.12.2)
 ============================================================================
   - Splash: Sportster-Bild (freigestellt)
   - Hilfe ? klein auf Start + Fahrer-Ampel
@@ -2507,10 +2507,27 @@ function openRiderList(){
    25. EVENT-HANDLER
    ============================================================================ */
 
+function setStartRole(role){
+  /* role: "leader" | "follower" – steuert orange Auswahl der beiden Hauptbuttons */
+  var bl = $("go-leader");
+  var bf = $("go-follower");
+  if(!bl || !bf) return;
+  if(role === "follower"){
+    bl.classList.add("alt");
+    bf.classList.remove("alt");
+    $("leader-opts").classList.add("hidden");
+    $("follower-join").classList.remove("hidden");
+  } else {
+    bl.classList.remove("alt");
+    bf.classList.add("alt");
+    $("follower-join").classList.add("hidden");
+    $("leader-opts").classList.remove("hidden");
+  }
+}
+
 $("go-leader").onclick = function(){
   if(!CFG_OK){ toast("Bitte erst Supabase einrichten."); return; }
-  $("leader-opts").classList.remove("hidden");
-  $("follower-join").classList.add("hidden");
+  setStartRole("leader");
   $("leader-name").focus();
 };
 
@@ -2525,8 +2542,8 @@ $("go-leader-confirm").onclick = function(){
 };
 
 $("go-follower").onclick = function(){
-  $("follower-join").classList.toggle("hidden");
-  $("leader-opts").classList.add("hidden");
+  setStartRole("follower");
+  try{ $("join-name").focus(); }catch(e){}
 };
 
 /* Club-Auswahl */
@@ -2751,7 +2768,11 @@ window.addEventListener("pagehide", function(){
     if(room){
       skipSplash = true;
       room = room.toUpperCase();
-      $("follower-join").classList.remove("hidden");
+      if(typeof setStartRole === "function") setStartRole("follower");
+      else {
+        $("follower-join").classList.remove("hidden");
+        try{ $("go-leader").classList.add("alt"); $("go-follower").classList.remove("alt"); }catch(e){}
+      }
       $("join-room").value = room;
       setTimeout(function(){ $("join-name").focus(); }, 400);
     }
